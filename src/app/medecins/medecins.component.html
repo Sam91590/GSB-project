@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<h2>
+  Rechercher un medecin
+</h2>
+<nav class="navbar navbar-inverse" [hidden]="estCacheMenu">
+  <ul class="nav navbar-nav" style ="display:flex; flex-direction:row; ">
+  <li><a (click)="derniersRapports()">Derniers Rapports</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <li><a (click)="majMedecin()">MAJ</a></li>
+  </ul>
+</nav>
+<div class="col-lg-6">
+  <div class="form-group">
+    <input type="search" placeholder="Nom du medecin.." [(ngModel)]="nomMedecin" (keyup)="charger()"/>
+  </div>
+</div>
+<div class="list-group">
+  <ul>
+    <li class="list-group-item" *ngFor="let medecin of lesMedecins"
+    (click)="selectionner(medecin)">
+      {{medecin.nom}} {{medecin.prenom}}; departement : {{medecin.departement}}
+    </li>
+  </ul>
+</div>
+<table *ngIf="afficherRapports">
+  <tr>
+  <td>Date</td>
+  <td>motif</td>
+  <td>Bilan</td>
+  <td>Nom du visiteur</td>
+</tr>
+<tr *ngFor="let rapport of lesRapports">
+<td>{{rapport.date }} </td> <td>{{rapport.motif }} </td> <td>{{rapport.bilan }} </td> <td>{{rapport.nom }} </td>
+</tr>
+</table>
+
+<form class="col-lg-6" name="frmMedecin" *ngIf="afficherMedecin" (ngSubmit)="valider()">
+    <div class="form-group">
+    <label for="adresse">Adresse </label> <textarea rows="3" cols="30" required="true"
+    [(ngModel)]="medecin.adresse" name="adr"> </textarea>
+    </div>
+    <div class="form-group">
+    <label for="tel">Téléphone</label>
+    <input type="text" required="true" [(ngModel)]="medecin.tel" name="tel" />
+    </div>
+    <div class="form-group">
+    <label for="specialite">Spécialité</label>
+    <input type="text" [(ngModel)]="medecin.specialitecomplementaire" name="spec" />
+    </div>
+    <button type="submit">Valider</button> <div class="alert alert-danger"
+    *ngIf="afficherMessage">{{lblMessage}}</div> </form>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
